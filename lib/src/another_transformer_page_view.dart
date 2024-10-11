@@ -108,6 +108,8 @@ class TransformerPageController extends PageController {
     this.loop = false,
     this.itemCount,
     this.reverse = false,
+    super.onAttach,
+    super.onDetach,
   }) : super(
           initialPage: TransformerPageController._getRealIndexFromRenderIndex(
             initialPage ?? 0,
