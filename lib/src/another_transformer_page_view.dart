@@ -256,6 +256,19 @@ class TransformerPageView extends StatefulWidget {
   /// If not set, it is controlled by this widget.
   final int? index;
 
+  /// Controls whether the widget's pages will respond to
+  /// [RenderObject.showOnScreen], which will allow for implicit accessibility
+  /// scrolling.
+  ///
+  /// With this flag set to false, when accessibility focus reaches the end of
+  /// the current page and the user attempts to move it to the next element, the
+  /// focus will traverse to the next widget outside of the page view.
+  ///
+  /// With this flag set to true, when accessibility focus reaches the end of
+  /// the current page and user attempts to move it to the next element, focus
+  /// will traverse to the next page in the page view.
+  final bool allowImplicitScrolling;
+
   /// Creates a scrollable list that works page by page using widgets that are
   /// created on demand.
   ///
@@ -283,6 +296,7 @@ class TransformerPageView extends StatefulWidget {
     this.transformer,
     this.itemBuilder,
     this.pageController,
+    this.allowImplicitScrolling = false,
     required this.itemCount,
   })  : assert(itemCount == 0 || itemBuilder != null || transformer != null),
         duration = duration ??
@@ -440,6 +454,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
       physics: widget.physics,
       pageSnapping: widget.pageSnapping,
       reverse: _pageController!.reverse,
+      allowImplicitScrolling: widget.allowImplicitScrolling,
     );
     if (_transformer == null) {
       return child;
